@@ -57,7 +57,7 @@ class DeticRosNode:
             assert vocabulary in ['lvis', 'openimages', 'objects365', 'coco', 'custom']
             self.vocabulary = vocabulary
 
-    def __init__(self, node_config: Optional[NodeConfig]=None):
+    def __init__(self):
         """
         if node_config is None:
             node_config = NodeConfig.from_rosparam()
