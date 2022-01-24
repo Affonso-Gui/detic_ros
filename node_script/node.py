@@ -5,10 +5,10 @@ import numpy as np
 import os
 import sys
 import torch
-from typing import Optional
 from detectron2.config import get_cfg
 """
 
+from typing import Optional
 import rospy
 import rospkg
 from cv_bridge import CvBridge
