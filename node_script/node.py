@@ -54,6 +54,7 @@ class DeticRosNode:
             self.vocabulary = vocabulary
 
     def __init__(self, node_config: Optional[NodeConfig]=None):
+        """
         if node_config is None:
             node_config = NodeConfig.from_rosparam()
         cfg = cfg_from_nodeconfig(node_config)
@@ -61,18 +62,20 @@ class DeticRosNode:
         self.predictor = VisualizationDemo(cfg, dummy_args)
 
         self.node_config = node_config
+        """
         # As for large buff_size please see:
         # https://answers.ros.org/question/220502/image-subscriber-lag-despite-queue-1/?answer=220505?answer=220505#post-id-22050://answers.ros.org/question/220502/image-subscriber-lag-despite-queue-1/?answer=220505?answer=220505#post-id-220505
         self.sub = rospy.Subscriber('~input_image', Image, self.callback, queue_size=1, buff_size=2**24)
         #self.pub_debug_image = rospy.Publisher('~debug_image', Image, queue_size=1000)
-        #self.pub_segmentation_image = rospy.Publisher('~segmentation_image', Image, queue_size=1000)
+        self.pub_segmentation_image = rospy.Publisher('~segmentation_image', Image, queue_size=1000)
         #if node_config.out_debug_segimage:
             #self.pub_debug_segmentation_image = rospy.Publisher('~debug_segmentation_image', Image, queue_size=1000)
 
-        self.pub_info = rospy.Publisher('~segmentation_info', SegmentationInfo, tcp_nodelay=True, queue_size=1000)
+        #self.pub_info = rospy.Publisher('~segmentation_info', SegmentationInfo, tcp_nodelay=True, queue_size=1000)
         rospy.loginfo('initialized node')
 
     def callback(self, msg: Image):
+        self.pub_segmentation_image.publish(msg)
         """
         bridge = CvBridge()
         img = bridge.imgmsg_to_cv2(msg, desired_encoding='passthrough')
@@ -127,10 +130,10 @@ class DeticRosNode:
         if self.node_config.verbose:
             time_elapsed_total = (rospy.Time.now() - time_start).to_sec()
             rospy.loginfo('total elapsed time in callback {}'.format(time_elapsed_total))
-        """
         seginfo = SegmentationInfo()
         seginfo.header = msg.header
         self.pub_info.publish(seginfo)
+        """
 
 
 def adhoc_hack_metadata_path():
@@ -143,7 +146,7 @@ def adhoc_hack_metadata_path():
 
 
 if __name__=='__main__':
-    adhoc_hack_metadata_path()
+    #adhoc_hack_metadata_path()
 
     rospy.init_node('detic_node', anonymous=True)
     node = DeticRosNode()
