@@ -73,6 +73,7 @@ class DeticRosNode:
         rospy.loginfo('initialized node')
 
     def callback(self, msg: Image):
+        """
         bridge = CvBridge()
         img = bridge.imgmsg_to_cv2(msg, desired_encoding='passthrough')
         time_start = rospy.Time.now()
@@ -127,6 +128,9 @@ class DeticRosNode:
         if self.node_config.verbose:
             time_elapsed_total = (rospy.Time.now() - time_start).to_sec()
             rospy.loginfo('total elapsed time in callback {}'.format(time_elapsed_total))
+        """
+        seginfo = SegmentationInfo()
+        self.pub_info.publish(seginfo)
 
 
 def adhoc_hack_metadata_path():
