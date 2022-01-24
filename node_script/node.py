@@ -75,7 +75,8 @@ class DeticRosNode:
         rospy.loginfo('initialized node')
 
     def callback(self, msg: Image):
-        rospy.loginfo('hoge ')
+        rospy.loginfo('latency {}'.format((rospy.Time.now() - msg.header.stamp).to_sec()))
+        msg.header.seq
         self.pub_segmentation_image.publish(msg)
         """
         bridge = CvBridge()
