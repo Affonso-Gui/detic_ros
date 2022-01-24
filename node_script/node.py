@@ -67,7 +67,7 @@ class DeticRosNode:
         # https://answers.ros.org/question/220502/image-subscriber-lag-despite-queue-1/?answer=220505?answer=220505#post-id-22050://answers.ros.org/question/220502/image-subscriber-lag-despite-queue-1/?answer=220505?answer=220505#post-id-220505
         self.sub = rospy.Subscriber('~input_image', Image, self.callback, queue_size=1, buff_size=2**24)
         #self.pub_debug_image = rospy.Publisher('~debug_image', Image, queue_size=1000)
-        self.pub_segmentation_image = rospy.Publisher('~segmentation_image', Image, queue_size=1000)
+        self.pub_segmentation_image = rospy.Publisher('~segmentation_image', Image, queue_size=1)
         #if node_config.out_debug_segimage:
             #self.pub_debug_segmentation_image = rospy.Publisher('~debug_segmentation_image', Image, queue_size=1000)
 
@@ -75,6 +75,7 @@ class DeticRosNode:
         rospy.loginfo('initialized node')
 
     def callback(self, msg: Image):
+        rospy.loginfo('hoge ')
         self.pub_segmentation_image.publish(msg)
         """
         bridge = CvBridge()
