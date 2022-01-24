@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""
 import copy
 import numpy as np
 import os
@@ -6,6 +7,7 @@ import sys
 import torch
 from typing import Optional
 from detectron2.config import get_cfg
+"""
 
 import rospy
 import rospkg
@@ -13,6 +15,7 @@ from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 from detic_ros.msg import SegmentationInfo
 
+"""
 # Dirty but no way, because CenterNet2 is not package oriented
 sys.path.insert(0, os.path.join(sys.path[0], 'third_party/CenterNet2/projects/CenterNet2/'))
 from centernet.config import add_centernet_config
@@ -43,6 +46,7 @@ def cfg_from_nodeconfig(node_config: NodeConfig):
 
     cfg.freeze()
     return cfg
+"""
 
 
 class DeticRosNode:
@@ -138,6 +142,7 @@ class DeticRosNode:
         """
 
 
+"""
 def adhoc_hack_metadata_path():
     # because original BUILDIN_CLASSIFIER is somehow posi-dep
     rospack = rospkg.RosPack()
@@ -145,6 +150,7 @@ def adhoc_hack_metadata_path():
     path_dict = detic.predictor.BUILDIN_CLASSIFIER
     for key in  path_dict.keys():
         path_dict[key] = os.path.join(pack_path, path_dict[key])
+"""
 
 
 if __name__=='__main__':
