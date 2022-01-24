@@ -69,7 +69,7 @@ class DeticRosNode:
         if node_config.out_debug_segimage:
             self.pub_debug_segmentation_image = rospy.Publisher('~debug_segmentation_image', Image, queue_size=10)
 
-        self.pub_info = rospy.Publisher('~segmentation_info', SegmentationInfo, queue_size=1)
+        self.pub_info = rospy.Publisher('~segmentation_info', SegmentationInfo, tcp_nodelay=True, queue_size=1)
         rospy.loginfo('initialized node')
 
     def callback(self, msg: Image):
