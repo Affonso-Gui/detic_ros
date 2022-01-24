@@ -122,7 +122,6 @@ class DeticRosNode:
         seginfo = SegmentationInfo()
         seginfo.detected_classes = class_names_detected
         seginfo.scores = [1.0] + instances.scores.tolist() # confidence with 1.0 about background detection
-        seginfo.header = msg.header
         self.pub_info.publish(seginfo)
 
         if self.node_config.verbose:
@@ -130,6 +129,7 @@ class DeticRosNode:
             rospy.loginfo('total elapsed time in callback {}'.format(time_elapsed_total))
         """
         seginfo = SegmentationInfo()
+        seginfo.header = msg.header
         self.pub_info.publish(seginfo)
 
 
