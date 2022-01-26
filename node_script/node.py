@@ -100,11 +100,11 @@ class DeticRosNode:
 
         print(len(instances.pred_masks))
         for i, mask in enumerate(instances.pred_masks):
-            mask: torch.Tensor
             # lable 0 is reserved for background label, so starting from 1
             print(i)
             print(sum(sum(mask)))
-            data[mask.detach().numpy()] = (i + 1)
+            mask_numpy = mask.detach().numpy()
+            data[np.where(mask_numpy)] = (i + 1)
         seg_img.data = data.flatten().astype(np.uint8).tolist()
         print(set(seg_img.data))
         self.pub_segmentation_image.publish(seg_img)
