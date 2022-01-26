@@ -103,6 +103,7 @@ class DeticRosNode:
             # lable 0 is reserved for background label, so starting from 1
             data[mask] = (i + 1)
         assert data.shape == (seg_img.height, seg_img.width)
+        assert set(data.flatten().tolist()) == set(list(range(len(instances.pred_masks))))
         seg_img.data = data.flatten().astype(np.uint8).tolist()
         self.pub_segmentation_image.publish(seg_img)
 
