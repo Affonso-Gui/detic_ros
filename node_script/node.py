@@ -103,8 +103,11 @@ class DeticRosNode:
             # lable 0 is reserved for background label, so starting from 1
             print(i)
             print(sum(sum(mask)))
+            assert sum(sum(mask)) > 0
             mask_numpy = mask.detach().numpy()
             data[np.where(mask_numpy)] = (i + 1)
+
+            print(sum(sum(data == (i+1))) > 0)
         seg_img.data = data.flatten().astype(np.uint8).tolist()
         print(set(seg_img.data))
         self.pub_segmentation_image.publish(seg_img)
