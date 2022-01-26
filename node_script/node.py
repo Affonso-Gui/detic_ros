@@ -103,6 +103,7 @@ class DeticRosNode:
             # lable 0 is reserved for background label, so starting from 1
             print(i)
             print(sum(sum(mask)))
+            print(mask.shape)
             data[mask] = (i + 1)
         seg_img.data = data.flatten().astype(np.uint8).tolist()
         print(set(seg_img.data))
