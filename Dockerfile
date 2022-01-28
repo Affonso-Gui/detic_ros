@@ -61,6 +61,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt update && apt install python3-osrf-pycommon python3-catkin-tools -y
 RUN apt update && apt install ros-noetic-jsk-tools -y
 RUN apt update && apt install ros-noetic-image-transport-plugins -y
+RUN apt update && apt install ros-noetic-image-proc -y
 
 WORKDIR /home/user
 
@@ -73,7 +74,7 @@ RUN pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 
 
 # Installing catkin package
 RUN mkdir -p ~/detic_ws/src
-RUN cd ~/detic_ws/src && git clone https://github.com/HiroIshida/detic_ros.git
+RUN cd ~/detic_ws/src && git clone https://github.com/HiroIshida/detic_ros.git -b experimental
 RUN cd ~/detic_ws/src/detic_ros && pip3 install -r requirements.txt
 RUN sudo apt install -y wget
 RUN cd ~/detic_ws/src/detic_ros && ./prepare.sh
