@@ -39,7 +39,7 @@
       <param name="out_debug_segimg" value="$(arg debug)"/>
       <param name="model_type" value="$(arg model_type)"/>
       <param name="vocabulary" value="custom"/>
-      <param name="custom_vocabulary" value="cup,bowl,bottle,bottle_cap"/>
+      <param name="custom_vocabulary" value="cup,bottle,bottle_cap"/>
       <param name="confidence_threshold" value="$(arg confidence_threshold)"/>
     </node>
 
@@ -61,16 +61,16 @@
     </rosparam>
   </node>
 
-  <node name="detic_filter_bowl"
-    pkg="nodelet" type="nodelet"
-    args="load jsk_pcl_utils/ClusterPointIndicesLabelFilter $(arg MANAGER)">
-    <remap from="~input/indices" to="detic_segmentor/cluster_indices"/>
-    <remap from="~input/labels" to="detic_segmentor/detected_classes"/>
-    <remap from="~output" to="detic_segmentor/output/cup/indices"/>
-    <rosparam>
-      label_value: 2
-    </rosparam>
-  </node>
+  <!-- <node name="detic_filter_bowl" -->
+  <!--   pkg="nodelet" type="nodelet" -->
+  <!--   args="load jsk_pcl_utils/ClusterPointIndicesLabelFilter $(arg MANAGER)"> -->
+  <!--   <remap from="~input/indices" to="detic_segmentor/cluster_indices"/> -->
+  <!--   <remap from="~input/labels" to="detic_segmentor/detected_classes"/> -->
+  <!--   <remap from="~output" to="detic_segmentor/output/cup/indices"/> -->
+  <!--   <rosparam> -->
+  <!--     label_value: 2 -->
+  <!--   </rosparam> -->
+  <!-- </node> -->
 
   <node name="detic_filter_bottle"
         pkg="nodelet" type="nodelet"
@@ -79,7 +79,7 @@
     <remap from="~input/labels" to="detic_segmentor/detected_classes"/>
     <remap from="~output" to="detic_segmentor/output/bottle/indices"/>
     <rosparam>
-      label_value: 3
+      label_value: 2
     </rosparam>
   </node>
 
@@ -90,7 +90,7 @@
     <remap from="~input/labels" to="detic_segmentor/detected_classes"/>
     <remap from="~output" to="detic_segmentor/output/bottle_cap/indices"/>
     <rosparam>
-      label_value: 4
+      label_value: 3
     </rosparam>
   </node>
 
