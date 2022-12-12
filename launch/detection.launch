@@ -155,7 +155,7 @@
       <remap from="~input" to="depth_registered/points"/>
       <remap from="~target" to="detic_segmentor/output/cup/indices/filtered"/>
       <remap from="~boxes" to="detic_segmentor/output/cup/boxes"/>
-      <remap from="~centroid_pose_array" to="detic_segmentor/output/cup/centroid"/>
+      <remap from="~centroid_pose_array" to="detic_segmentor/output/cup/centroid/raw"/>
       <rosparam>
         align_boxes: true
         align_boxes_with_plane: false
@@ -167,6 +167,10 @@
       </rosparam>
     </node>
 
+  <node name="detic_cup_filter"
+          pkg="detic_ros" type="filter_posearray.py"
+          args="detic_segmentor/output/cup/centroid/raw detic_segmentor/output/cup/centroid"/>
+
   <node name="detic_cluster_point_indices_decomposer_bottle"
           pkg="nodelet" type="nodelet"
           args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)"
@@ -174,7 +178,7 @@
       <remap from="~input" to="depth_registered/points"/>
       <remap from="~target" to="detic_segmentor/output/bottle/indices/filtered"/>
       <remap from="~boxes" to="detic_segmentor/output/bottle/boxes"/>
-      <remap from="~centroid_pose_array" to="detic_segmentor/output/bottle/centroid"/>
+      <remap from="~centroid_pose_array" to="detic_segmentor/output/bottle/centroid/raw"/>
       <rosparam>
         align_boxes: true
         align_boxes_with_plane: false
@@ -186,6 +190,10 @@
       </rosparam>
   </node>
 
+  <node name="detic_bottle_filter"
+          pkg="detic_ros" type="filter_posearray.py"
+          args="detic_segmentor/output/bottle/centroid/raw detic_segmentor/output/bottle/centroid"/>
+
   <node name="detic_cluster_point_indices_decomposer_bottle_cap"
           pkg="nodelet" type="nodelet"
           args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)"
@@ -193,7 +201,7 @@
       <remap from="~input" to="depth_registered/points"/>
       <remap from="~target" to="detic_segmentor/output/bottle_cap/indices/filtered"/>
       <remap from="~boxes" to="detic_segmentor/output/bottle_cap/boxes"/>
-      <remap from="~centroid_pose_array" to="detic_segmentor/output/bottle_cap/centroid"/>
+      <remap from="~centroid_pose_array" to="detic_segmentor/output/bottle_cap/centroid/raw"/>
       <rosparam>
         align_boxes: true
         align_boxes_with_plane: false
@@ -204,6 +212,10 @@
         queue_size: 100
       </rosparam>
   </node>
+
+  <node name="detic_bottle_cap_filter"
+        pkg="detic_ros" type="filter_posearray.py"
+        args="detic_segmentor/output/bottle_cap/centroid/raw detic_segmentor/output/bottle_cap/centroid"/>
 
 </group>
 
