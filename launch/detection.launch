@@ -1,0 +1,19 @@
+<launch>
+
+  <arg name="debug" default="false"/>
+
+  <!-- CHANGE PNG_LEVEL TO 1 -->
+  <!-- https://github.com/knorth55/zdepth_image_transport -->
+  <!-- https://github.com/knorth55/zdepth_image_transport -->
+  <include file="$(find detic_ros)/launch/sample_detection.launch">
+    <arg name="input_image" value="/head_camera/rgb/image_rect_color"/>
+    <arg name="input_depth" value="/head_camera/depth_registered/sw_registered/image_rect"/>
+    <arg name="input_camera_info" value="/head_camera/depth_registered/sw_registered/camera_info"/>
+    <arg name="robot_frame" value="odom"/>
+    <arg name="vocabulary" value="custom"/>
+    <arg name="custom_vocabulary" value="keycard,card,wall_socket"/>
+    <arg name="confidence_threshold" value="0.2"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+</launch>
