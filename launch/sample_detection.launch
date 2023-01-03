@@ -7,6 +7,7 @@
   <arg name="input_image" default="/kinect_head/rgb/image_rect_color"/>
   <arg name="input_depth" default="/kinect_head/depth_registered/image"/>
   <arg name="input_camera_info" default="/kinect_head/depth_registered/camera_info"/>
+  <arg name="robot_frame" default="base_footprint"/>
   <arg name="model_type" default="res50"/>
   <arg name="vocabulary" default="lvis"/>
   <arg name="custom_vocabulary" default=""/>
@@ -78,12 +79,12 @@
       <remap from="~target" to="detic_euclidean_clustering/output"/>
       <remap from="~boxes" to="detic_segmentor/output/boxes"/>
       <remap from="~centroid_pose_array" to="detic_segmentor/output/centroid"/>
-      <rosparam>
+      <rosparam subst_value="True">
         align_boxes: true
         align_boxes_with_plane: false
         force_to_flip_z_axis: false
         use_pca: false
-        target_frame_id: base_footprint
+        target_frame_id: $(arg robot_frame)
         approximate_sync: true
         queue_size: 100
       </rosparam>
