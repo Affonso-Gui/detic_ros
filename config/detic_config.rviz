@@ -244,7 +244,7 @@ Visualization Manager:
       Axes Radius: 0.014999999664723873
       Class: rviz/PoseArray
       Color: 255; 25; 0
-      Enabled: true
+      Enabled: false
       Head Length: 0.07000000029802322
       Head Radius: 0.029999999329447746
       Name: Pose
@@ -252,6 +252,22 @@ Visualization Manager:
       Shaft Radius: 0.009999999776482582
       Shape: Axes
       Topic: /docker/detic_segmentor/output/centroid
+      Unreliable: false
+      Value: false
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.05000000074505806
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: TableCards
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Axes
+      Topic: /docker/detic_segmentor/output/card/table/centroid
       Unreliable: false
       Value: true
     - Class: rviz/Image
@@ -290,7 +306,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -305,7 +321,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -341,18 +357,18 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.2813286781311035
-        Y: 0.04107753932476044
-        Z: 0.9213305115699768
+        X: 0.2678692936897278
+        Y: 0.06741788983345032
+        Z: 0.9260579943656921
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.444798082113266
+      Pitch: 0.5447977781295776
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.27539247274398804
+      Yaw: 0.37539249658584595
     Saved: ~
 Window Geometry:
   DebugImage:
@@ -374,5 +390,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1267
-  X: 108
-  Y: 131
+  X: 274
+  Y: 116
