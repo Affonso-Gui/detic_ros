@@ -11,6 +11,7 @@ class FilterEmpty:
 
     def republish(self, msg):
         if msg.poses:
+            msg.poses.sort(key=lambda p: p.position.y)
             self.pub.publish(msg)
             self.republish_table(msg)
 
@@ -20,7 +21,7 @@ class FilterEmpty:
             self.pub_table.publish(msg)
 
     def check_pose(self, pose):
-        return (0.070 < pose.position.z < 0.73)
+        return (0.070 < pose.position.z < 0.73) and (pose.position.x < 0.50)
 
 
 if __name__ == '__main__':
