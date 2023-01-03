@@ -1,5 +1,6 @@
 <launch>
 
+  <arg name="namespace" default="docker"/>
   <arg name="debug" default="false"/>
 
   <!-- CHANGE PNG_LEVEL TO 1 -->
@@ -14,6 +15,13 @@
     <arg name="custom_vocabulary" value="keycard,card,wall_socket"/>
     <arg name="confidence_threshold" value="0.2"/>
     <arg name="debug" value="$(arg debug)"/>
+    <arg name="namespace" value="$(arg namespace)"/>
   </include>
+
+  <group ns='$(arg namespace)'>
+    <node name="detic_card_filter"
+          pkg="detic_ros" type="filter_posearray.py"
+          args="detic_segmentor/output/centroid detic_segmentor/output/card/centroid detic_segmentor/output/card/table/centroid"/>
+  </group>
 
 </launch>
