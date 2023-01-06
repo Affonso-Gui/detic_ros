@@ -21,7 +21,8 @@
   <group ns='$(arg namespace)'>
     <node name="detic_card_filter"
           pkg="detic_ros" type="filter_posearray.py"
-          args="detic_segmentor/output/centroid detic_segmentor/output/card/table/centroid"/>
+          args="detic_segmentor/output/centroid detic_segmentor/output/card/table/centroid
+                detic_euclidean_clustering/output detic_segmentor/output/card/table/indices"/>
   </group>
 
 </launch>
