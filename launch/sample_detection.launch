@@ -63,7 +63,8 @@
       <rosparam>
         multi: true
         tolerance: 0.03
-        min_size: 10
+        min_size: 50
+        max_size: 1000
         downsample_enable: true
         cluster_filter: 1
         approximate_sync: true
