@@ -4,18 +4,36 @@
 
   <arg name="namespace" default="docker"/>
   <arg name="debug" default="false"/>
+  <arg name="confidence_threshold" default="0.5"/>
 
-  <!-- CHANGE PNG_LEVEL TO 1 -->
+  <!-- DYNAMIC RECONFIGURE PARAMS -->
   <!-- https://github.com/knorth55/zdepth_image_transport -->
   <!-- https://github.com/knorth55/zdepth_image_transport -->
+  <node name="dynamic_reconfigure_set_png_level"
+        pkg="dynamic_reconfigure" type="dynparam"
+        args="set /realsense_torso/aligned_depth_to_color/image_raw/compressedDepth png_level 1"/>
+
+  <node name="dynamic_reconfigure_set_euclidean_clustering_min_size"
+        pkg="dynamic_reconfigure" type="dynparam"
+        args="set /euclidean_clustering min_size 1000"/>
+
+  <node name="dynamic_reconfigure_set_multi_plane_estimate_min_size"
+        pkg="dynamic_reconfigure" type="dynparam"
+        args="set /multi_plane_estimate min_size 20000"/>
+
+  <node name="dynamic_reconfigure_set_tabletop_cpi_decomposer_use_pca"
+        pkg="dynamic_reconfigure" type="dynparam"
+        args="set /tabletop_cpi_decomposer use_pca false"/>
+
+  <!-- DETIC NODE -->
   <include file="$(find detic_ros)/launch/sample_detection.launch">
     <arg name="input_image" value="/realsense_torso/color/image_rect_color"/>
     <arg name="input_depth" value="/realsense_torso/aligned_depth_to_color/image_raw"/>
     <arg name="input_camera_info" value="/realsense_torso/color/camera_info"/>
     <arg name="robot_frame" value="base"/>
     <arg name="vocabulary" value="custom"/>
-    <arg name="custom_vocabulary" value="toy,bottle,cup,baseball,box"/>
-    <arg name="confidence_threshold" value="0.5"/>
+    <arg name="custom_vocabulary" value="toy,bottle,cup,baseball"/>
+    <arg name="confidence_threshold" value="$(arg confidence_threshold)"/>
     <arg name="debug" value="$(arg debug)"/>
     <arg name="namespace" value="$(arg namespace)"/>
   </include>
@@ -64,17 +82,6 @@
       <remap from="~output" to="detic_segmentor/output/baseball/indices"/>
       <rosparam>
         label_value: 4
-      </rosparam>
-    </node>
-
-    <node name="detic_filter_box"
-          pkg="nodelet" type="nodelet"
-          args="load jsk_pcl_utils/ClusterPointIndicesLabelFilter $(arg MANAGER)">
-      <remap from="~input/indices" to="detic_segmentor/indices"/>
-      <remap from="~input/labels" to="detic_segmentor/detected_classes"/>
-      <remap from="~output" to="detic_segmentor/output/box/indices"/>
-      <rosparam>
-        label_value: 5
       </rosparam>
     </node>
 
@@ -143,25 +150,6 @@
       <remap from="~input" to="depth_registered/points"/>
       <remap from="~input/cluster_indices" to="detic_segmentor/output/baseball/indices"/>
       <remap from="~output" to="detic_segmentor/output/baseball/indices/filtered"/>
-      <rosparam>
-        multi: true
-        tolerance: 0.03
-        min_size: 50
-        max_size: 1000
-        downsample_enable: true
-        cluster_filter: 1
-        approximate_sync: true
-        queue_size: 100
-      </rosparam>
-    </node>
-
-    <node name="detic_euclidean_clustering_box"
-          pkg="nodelet" type="nodelet"
-          args="load jsk_pcl/EuclideanClustering $(arg MANAGER)"
-          clear_params="true">
-      <remap from="~input" to="depth_registered/points"/>
-      <remap from="~input/cluster_indices" to="detic_segmentor/output/box/indices"/>
-      <remap from="~output" to="detic_segmentor/output/box/indices/filtered"/>
       <rosparam>
         multi: true
         tolerance: 0.03
@@ -251,29 +239,10 @@
       </rosparam>
     </node>
 
-    <node name="detic_cluster_point_indices_decomposer_box"
-          pkg="nodelet" type="nodelet"
-          args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)"
-          clear_params="true">
-      <remap from="~input" to="depth_registered/points"/>
-      <remap from="~target" to="detic_segmentor/output/box/indices/filtered"/>
-      <remap from="~boxes" to="detic_segmentor/output/box/boxes"/>
-      <remap from="~centroid_pose_array" to="detic_segmentor/output/box/centroid"/>
-      <rosparam>
-        align_boxes: true
-        align_boxes_with_plane: false
-        force_to_flip_z_axis: false
-        use_pca: false
-        target_frame_id: base
-        approximate_sync: true
-        queue_size: 100
-      </rosparam>
-    </node>
-
-    <!--   <node name="detic_card_filter" -->
-    <!--         pkg="detic_ros" type="filter_posearray.py" -->
-    <!--         args="detic_segmentor/output/centroid detic_segmentor/output/card/table/centroid -->
-    <!--               detic_euclidean_clustering/output detic_segmentor/output/card/table/indices"/> -->
+    <node name="detic_box_filter"
+          pkg="detic_ros" type="filter_posearray.py"
+          args="/tabletop_cpi_decomposer/centroid_pose_array detic_segmentor/output/box/centroid
+                /tabletop_cpi_decomposer/cluster_indices detic_segmentor/output/box/indices"/>
 
   </group>
 
