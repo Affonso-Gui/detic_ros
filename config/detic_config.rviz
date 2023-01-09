@@ -372,9 +372,21 @@ Visualization Manager:
       Value: true
       alpha: 0.5
       color: 25; 255; 0
-      coloring: Auto
-      line width: 0.004999999888241291
-      only edge: false
+      coloring: ""
+      line width: 0.009999999776482582
+      only edge: true
+      show coords: false
+    - Class: jsk_rviz_plugin/BoundingBoxArray
+      Enabled: true
+      Name: ContainerBox
+      Topic: /tabletop_cpi_decomposer/boxes
+      Unreliable: false
+      Value: true
+      alpha: 0.800000011920929
+      color: 255; 25; 0
+      coloring: Flat color
+      line width: 0.009999999776482582
+      only edge: true
       show coords: false
     - Alpha: 1
       Arrow Length: 0.30000001192092896
@@ -449,7 +461,7 @@ Visualization Manager:
       Enabled: true
       Head Length: 0.07000000029802322
       Head Radius: 0.029999999329447746
-      Name: Box
+      Name: Container
       Shaft Length: 0.23000000417232513
       Shaft Radius: 0.009999999776482582
       Shape: Axes
@@ -499,10 +511,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7953981757164001
+      Pitch: 0.6203978657722473
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.6103938221931458
+      Yaw: 0.24039320647716522
     Saved: ~
 Window Geometry:
   DebugImage:
@@ -524,5 +536,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1267
-  X: 421
-  Y: 141
+  X: 422
+  Y: 112
