@@ -36,8 +36,7 @@ class FilterPoses:
             pass
 
     def check_pose(self, pose):
-        # return (0.070 < pose.position.z < 0.73) and (pose.position.x < 0.50)
-        return(True)
+        return (pose.position.z < -0.05)
 
 
 if __name__ == '__main__':
